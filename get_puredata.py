@@ -110,6 +110,6 @@ def get_puredata():
 
 if __name__ == '__main__':
 
-    list_database()
+    # list_database()
 
-    # get_puredata()
+    get_puredata()

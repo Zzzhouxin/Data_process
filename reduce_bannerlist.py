@@ -13,12 +13,13 @@ def reduce_bannerlist():
 
     data_collletlist = []
     item = dict()
-    input_items = ["http server", "nginx", 'iis', "lighttpd", 'rompager']
+    input_items = ["http server", "nginx", 'iis', "lighttpd", 'micro httpd', 'boa', 'rompager', 'jetty']
 
     for filename in os.listdir(pure_data_dir):
         if filename[:4] == "pure":
             data_collletlist.append(pure_data_dir + filename)
 
+    data_collletlist.sort()
     print(data_collletlist)
 
     for data_path in data_collletlist:
@@ -32,7 +33,7 @@ def reduce_bannerlist():
                     if _product in input_items:
                         if _product not in item.keys():
                             item[_product] = 0
-                        elif item[_product] < 10000:
+                        elif item[_product] < 30000:
                             dscan_list = []
                             banner_list = [0, 6, 19, 21, 40, 72, 87, 261, 272]
                             for banner_num in banner_list:
