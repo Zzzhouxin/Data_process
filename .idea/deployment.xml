@@ -5,7 +5,14 @@
       <paths name="root@10.26.48.94:22">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/zhouxin/Data_process" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/data/zhouxin/Data_process" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="zhouxin@10.26.48.94:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/data/zhouxin/Data_process" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

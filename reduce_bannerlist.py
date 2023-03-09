@@ -11,13 +11,13 @@ def reduce_bannerlist():
     :return:
     """
 
-    data_collletlist = []
+    data_collletlist = ['/data/zhouxin/Data_process/process_pip/pip/pure_httpserver.json']
     item = dict()
-    input_items = ["http server", "nginx", 'iis', "lighttpd", 'micro httpd', 'boa', 'rompager', 'jetty']
+    input_items = ["http server"]
 
-    for filename in os.listdir(pure_data_dir):
-        if filename[:4] == "pure":
-            data_collletlist.append(pure_data_dir + filename)
+    # for filename in os.listdir(pure_data_dir):
+    #     if filename[:4] == "pure":
+    #         data_collletlist.append(pure_data_dir + filename)
 
     data_collletlist.sort()
     print(data_collletlist)
@@ -29,11 +29,12 @@ def reduce_bannerlist():
                 for line in f1:
                     data = json.loads(line)
                     _product = data["product"]
+                    _version = data["version"]
 
                     if _product in input_items:
                         if _product not in item.keys():
                             item[_product] = 0
-                        elif item[_product] < 30000:
+                        elif item[_product] < 150000:
                             dscan_list = []
                             banner_list = [0, 6, 19, 21, 40, 72, 87, 261, 272]
                             for banner_num in banner_list:
@@ -44,7 +45,8 @@ def reduce_bannerlist():
                             data_line = {
                                 'ip': data['ip'],
                                 'banner_list': dscan_list,
-                                'product': data['product']
+                                'product': data['product'],
+                                'version': _version
                             }
 
                             f2.write(json.dumps(data_line, ensure_ascii=False))

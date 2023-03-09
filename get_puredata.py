@@ -10,7 +10,7 @@ process_pip_dir = base_dir + 'Data_process/process_pip'
 
 database_list = os.listdir(database_dir)
 
-# database_list = ['/Users/zhouxin/所有文件/研一下/KafkaOutput/dscan_result.json']
+# database_list = ['/data/zhouxin/database/dscan_result1.json']
 database_list.sort()
 
 
@@ -73,19 +73,25 @@ def get_puredata():
                                     _type = line_data['port_list'][0]['app_list'][k]['type']
                                     _product = line_data['port_list'][0]['app_list'][k]['product']
 
+                                    if line_data['port_list'][0]['app_list'][k]["version_start"] != "":
+                                        _version = line_data['port_list'][0]['app_list'][k]["version_start"]
+                                    else:
+                                        _version = "no_version"
+
                                     if _type == "WebContainer":
                                         banner_list.append(line_data['port_list'][0]['dscan_data']
                                                            ['http_server_detect_list'][j])
-
-#                                     if line_data['port_list'][0]['app_list'][k]["version_start"] != "":
-#                                         _version = line_data['port_list'][0]['app_list'][k]["version_start"]
-#                                     else:
-#                                         _version = "no_version"
 
                         elif len(line_data['port_list']) == 2:
                             for j in range(len(line_data['port_list'][1]['dscan_data']['http_server_detect_list'])):
                                 for k in range(len(line_data['port_list'][0]['app_list'])):
                                     _type = line_data['port_list'][0]['app_list'][k]['type']
+                                    _product = line_data['port_list'][0]['app_list'][k]['product']
+
+                                    if line_data['port_list'][0]['app_list'][k]["version_start"] != "":
+                                        _version = line_data['port_list'][0]['app_list'][k]["version_start"]
+                                    else:
+                                        _version = "no_version"
 
                                     if _type == "WebContainer":
                                         banner_list.append(line_data['port_list'][1]['dscan_data']
@@ -98,7 +104,8 @@ def get_puredata():
                     data_lines = {
                         'ip': line_data['ip'],
                         'banner_list': banner_list,
-                        'product': _product
+                        'product': _product,
+                        'version': _version
                     }
 
                     with open(process_pip_dir + '/pure_data/pure_' + dscan_file, mode='a+', encoding='utf-8') as f2:

@@ -10,6 +10,7 @@
             </list>
           </settings>
         </remote-mappings>
+        <remote-mappings server-id="python@sshConfig://zhouxin@10.26.48.94:22 password/usr/bin/python3.6" />
       </list>
     </list>
   </component>
