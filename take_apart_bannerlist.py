@@ -26,7 +26,8 @@ def take_apart_bannerlist():
                 att_data = {
                     'ip': line_data["ip"],
                     'attribute': attribute,
-                    'production': line_data['product']
+                    'production': line_data['product'],
+                    'version': line_data['version']
                 }
                 f2.write(json.dumps(att_data, ensure_ascii=False))
                 f2.write('\n')
