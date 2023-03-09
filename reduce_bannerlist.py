@@ -46,7 +46,6 @@ def reduce_bannerlist():
                                 'ip': data['ip'],
                                 'banner_list': dscan_list,
                                 'product': data['product'],
-                                'version': _version
                             }
 
                             f2.write(json.dumps(data_line, ensure_ascii=False))

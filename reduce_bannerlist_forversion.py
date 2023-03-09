@@ -1,53 +1,60 @@
+import json
 import os
 
-import json
-
-data_dir = '/data/zhouxin/database/'
+pure_data_dir = './process_pip/pure_data/'
 
 
-def reduce_bannerlist_forversion(product):
+def reduce_bannerlist(product):
     """
-    选取某一种web容器进行分类
+    筛选我们需要的深度探索特征，去掉其他无用的数据字段
     :return:
     """
 
-    data_collletlist = []
+    data_collletlist = [ ]
     item = dict()
 
-    for filename in os.listdir(data_dir):
-        data_collletlist.append(data_dir + filename)
+    for filename in os.listdir(pure_data_dir):
+        if filename[:4] == "pure":
+            data_collletlist.append(pure_data_dir + filename)
 
     data_collletlist.sort()
     print(data_collletlist)
 
     for data_path in data_collletlist:
-        with open(data_path, 'r', encoding='utf-8') as f1:
-            for line in f1:
-                line_data = json.loads(line)
-                try:
-                    if line_data['port_list'][0]['app_list']:
-                        for i in range(len(line_data['port_list'][0]['app_list'])):
-                            _type = line_data['port_list'][0]['app_list'][i]['type']
-                            _product = line_data['port_list'][0]['app_list'][i]['product']
-                            if line_data['port_list'][0]['app_list'][i]["version_start"] != "":
-                                _version = line_data['port_list'][0]['app_list'][i]["version_start"]
-                            else:
-                                _version = "no_version"
+        with open(data_path, mode='r', encoding='utf-8') as f1:
+            print("正在处理: " + data_path)
+            with open("./process_pip/pip/train_text.json", 'a+', encoding='utf-8') as f2:
+                for line in f1:
+                    data = json.loads(line)
+                    _product = data["product"]
+                    _version = data["version"]
 
-                            if 'WebContainer' == _type and product == _product:
-                                with open("./process_pip/pure_data/http_server.json", mode="a+", encoding='utf-8') as f2:
-                                    f2.write(json.dumps(line_data))
-                                    f2.write('\n')
-                                f2.close()
+                    if _product == product:
+                        if _version not in item.keys():
+                            item[_version] = 0
+                        elif item[_version] < 100000:
+                            dscan_list = []
+                            banner_list = [0, 6, 19, 21, 40, 72, 87, 261, 272]
+                            for banner_num in banner_list:
+                                try:
+                                    dscan_list.append(data["banner_list"][banner_num])
+                                except:
+                                    print("dscan数据为空")
+                            data_line = {
+                                'ip': data['ip'],
+                                'banner_list': dscan_list,
+                                'product': _product,
+                                'version': _version
+                            }
 
-                                if _version not in item:
-                                    item[_version] = 1
-                                else:
-                                    item[_version] += 1
-
-                except:
-                    pass
-
+                            f2.write(json.dumps(data_line, ensure_ascii=False))
+                            item[_version] += 1
+                            f2.write('\n')
+                        else:
+                            pass
+                    else:
+                        pass
+                f2.close()
             f1.close()
 
     print("### bannrlist整理结束 ###")
@@ -56,4 +63,4 @@ def reduce_bannerlist_forversion(product):
 
 if __name__ == '__main__':
 
-    reduce_bannerlist_forversion("http server")
+    reduce_bannerlist("http server")
