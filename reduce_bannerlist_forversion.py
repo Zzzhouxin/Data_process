@@ -63,4 +63,4 @@ def reduce_bannerlist(product):
 
 if __name__ == '__main__':
 
-    reduce_bannerlist("http server")
+    reduce_bannerlist("nginx")
