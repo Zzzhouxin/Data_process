@@ -1,4 +1,6 @@
 import json
+import re
+
 from bs4 import BeautifulSoup
 from nltk import word_tokenize
 
@@ -32,6 +34,12 @@ def remov_html_label():
                             if part2_data[j][:14] == "Content-Range:":
                                 part2_data[j] = "Content-Range: CONTENT-RANGE"
 
+                    # Todo
+                    #  mask server 字段
+                            if part2_data[j][:7] == "Server:":
+                                part2_data[j] = "Server: Masked"
+
+
                     """         
                     去掉part3的html标签
                     """
@@ -42,7 +50,17 @@ def remov_html_label():
                         part3_data = attribute_data[i]["part3"]
                         part3_data = BeautifulSoup(part3_data, 'html.parser')
                         part3_data = word_tokenize(part3_data.get_text())
+
                         attribute_data[i]["part3"] = str(" ").join(part3_data)
+
+                        # Todo Mask version
+                        pattern1 = re.compile(r'nginx/.+')
+                        pattern2 = re.compile(r'Apache/.+')
+                        attribute_data[i]["part3"] = re.sub(pattern1, 'masked_version', string=attribute_data[i]["part3"], count=0)
+                        attribute_data[i]["part3"] = re.sub(pattern2, 'masked_version', string=attribute_data[i]["part3"], count=0)
+
+
+
 
                     f2.write(json.dumps(line_data, ensure_ascii=False))
                     f2.write('\n')
