@@ -1,3 +1,5 @@
 
 *.csv
 *.json
+.idea/Data_process.iml
+.idea/misc.xml
