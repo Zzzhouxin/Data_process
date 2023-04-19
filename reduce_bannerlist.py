@@ -11,13 +11,18 @@ def reduce_bannerlist():
     :return:
     """
 
-    data_collletlist = ['/data/zhouxin/Data_process/process_pip/pip/pure_httpserver.json']
-    item = dict()
-    input_items = ["http server"]
+    # 读取某一种web容器的有关数据时
+    # data_collletlist = ['/data/zhouxin/Data_process/process_pip/pip/pure_httpserver.json']
+    # input_item = ['http server]
 
-    # for filename in os.listdir(pure_data_dir):
-    #     if filename[:4] == "pure":
-    #         data_collletlist.append(pure_data_dir + filename)
+
+    data_collletlist = []
+    item = dict()
+    input_items = ["http server, nginx, iis, lighttpd, micro httpd, boa, rompager, tomcat, jetty, tengine"]
+
+    for filename in os.listdir(pure_data_dir):
+        if filename[:4] == "pure":
+            data_collletlist.append(pure_data_dir + filename)
 
     data_collletlist.sort()
     print(data_collletlist)
