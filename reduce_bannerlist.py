@@ -13,12 +13,11 @@ def reduce_bannerlist():
 
     # 读取某一种web容器的有关数据时
     # data_collletlist = ['/data/zhouxin/Data_process/process_pip/pip/pure_httpserver.json']
-    # input_item = ['http server]
-
+    # input_item = ['http server']
 
     data_collletlist = []
     item = dict()
-    input_items = ["http server, nginx, iis, lighttpd, micro httpd, boa, rompager, tomcat, jetty, tengine"]
+    input_items = ["http server", "nginx", "iis", "lighttpd", "micro httpd", "boa", "rompager", "tomcat", "jetty", "tengine"]
 
     for filename in os.listdir(pure_data_dir):
         if filename[:4] == "pure":
@@ -39,7 +38,8 @@ def reduce_bannerlist():
                     if _product in input_items:
                         if _product not in item.keys():
                             item[_product] = 0
-                        elif item[_product] < 150000:
+
+                        if item[_product] < 150000:
                             dscan_list = []
                             banner_list = [0, 6, 19, 21, 40, 72, 87, 261, 272]
                             for banner_num in banner_list:
@@ -68,5 +68,4 @@ def reduce_bannerlist():
 
 
 if __name__ == '__main__':
-
     reduce_bannerlist()

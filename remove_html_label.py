@@ -36,8 +36,8 @@ def remov_html_label():
 
                     # Todo
                     #  mask server 字段
-                            if part2_data[j][:7] == "Server:":
-                                part2_data[j] = "Server: Masked"
+                    #         if part2_data[j][:7] == "Server:":
+                    #             part2_data[j] = "Server: Masked"
 
 
                     """         
@@ -54,10 +54,10 @@ def remov_html_label():
                         attribute_data[i]["part3"] = str(" ").join(part3_data)
 
                         # Todo Mask version
-                        pattern1 = re.compile(r'nginx/.+')
-                        pattern2 = re.compile(r'Apache/.+')
-                        attribute_data[i]["part3"] = re.sub(pattern1, 'masked_version', string=attribute_data[i]["part3"], count=0)
-                        attribute_data[i]["part3"] = re.sub(pattern2, 'masked_version', string=attribute_data[i]["part3"], count=0)
+                        # pattern1 = re.compile(r'nginx/.+')
+                        # pattern2 = re.compile(r'Apache/.+')
+                        # attribute_data[i]["part3"] = re.sub(pattern1, 'masked_version', string=attribute_data[i]["part3"], count=0)
+                        # attribute_data[i]["part3"] = re.sub(pattern2, 'masked_version', string=attribute_data[i]["part3"], count=0)
 
 
 
