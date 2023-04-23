@@ -1,30 +1,41 @@
 import json
-from multiprocessing import Pool
+from collections import defaultdict
+import os
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 
-def count_labels(json_str):
-    data = json.loads(json_str)
-    return data['production']
+def process_file(file_path):
+    count_dict = defaultdict(int)
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line in file:
+            json_data = json.loads(line)
+            production = json_data['production']
+            count_dict[production] += 1
+    return count_dict
 
 
-def process_file(filename):
-    with open(filename, encoding='utf-8') as f:
-        json_list = list(f)
+def count_productions_multi_process(folder_path, max_workers=None):
+    file_paths = [os.path.join(folder_path, file) for file in os.listdir(folder_path) if file.endswith('.json')]
+    final_count_dict = defaultdict(int)
 
-    with Pool() as p:
-        labels = p.map(count_labels, json_list)
+    with ProcessPoolExecutor(max_workers=max_workers) as executor:
+        futures = {executor.submit(process_file, file_path): file_path for file_path in file_paths}
 
-    label_dict = {}
-    for label in labels:
-        if label in label_dict:
-            label_dict[label] += 1
-        else:
-            label_dict[label] = 1
+        for future in as_completed(futures):
+            file_path = futures[future]
+            try:
+                count_dict = future.result()
+                for production, count in count_dict.items():
+                    final_count_dict[production] += count
 
-    return label_dict
+                print(count_dict.items())
+            except Exception as e:
+                print(f"Error processing file '{file_path}': {e}")
+
+    return final_count_dict
 
 
-if __name__ == '__main__':
-    filename = './process_pip/pip/train_text3.json'
-    label_dict = process_file(filename)
-    print(label_dict)
+if __name__ == "__main__":
+    folder_path = "./process_pip/pip/"
+    result = count_productions_multi_process(folder_path)
+    print(result)
