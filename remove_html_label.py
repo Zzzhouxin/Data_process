@@ -60,8 +60,6 @@ def remov_html_label():
                         # attribute_data[i]["part3"] = re.sub(pattern2, 'masked_version', string=attribute_data[i]["part3"], count=0)
 
 
-
-
                     f2.write(json.dumps(line_data, ensure_ascii=False))
                     f2.write('\n')
             f2.close()

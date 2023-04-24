@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 import json
+import re
 
 
 def get_train_txt():
@@ -30,5 +32,14 @@ def get_train_txt():
         f1.close()
 
 
+def text_filter():
+    text = "A  �A  .�A  P�A  u�A     \�A   �          �   ��� BaseException� @    �  �      �   ��� HelpContext\�A    �          �   ���InnerException� @    �  �      �    ��Message� @  �B           �    �� StackTrace  @    �          �   ��� StackInfo   ��A              �A     ��A     �A     4�A 0� @  8� @  ��B p� @  �� @  �� @  �� @  �� @  �� @  Ȃ @  ��B  ` �B �B      EArgumentException    �A EArgumentException��A \�A   System.SysUtils         ��A             ��A     ��A     ��A     ��"
+    filtered_text = re.sub(r'[^\u4E00-\u9FA5\uF900-\uFA2D\u0020-\u007F\uFF00-\uFFEF\u2000-\u206F]', '', text)
+
+    print(filtered_text)
+    # 输出：Hello，world！你好，世界！12345 #@%$。
+
+
 if __name__ == "__main__":
-    get_train_txt()
+    # get_train_txt()
+    text_filter()

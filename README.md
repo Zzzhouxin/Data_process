@@ -21,6 +21,7 @@
 ###### get_train_data.py
 
 生成所需格式的训练数据
+Todo 去掉特殊字符
 
 ###### sim_hash.py
 
