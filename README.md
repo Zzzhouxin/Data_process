@@ -21,9 +21,13 @@
 ###### get_train_data.py
 
 生成所需格式的训练数据
+Todo 筛选去掉空数据，去掉XML文件
 Todo 去掉特殊字符
 
 ###### sim_hash.py
 
 用sim_hash对样本去重
 
+##### select_probe.py
+
+筛选最合适的探测载荷

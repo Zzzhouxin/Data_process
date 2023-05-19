@@ -4,6 +4,9 @@ import json
 
 pure_data_dir = './process_pip/pure_data/'
 
+input_items = ["http server", "nginx", "iis", "lighttpd", "micro httpd", "boa", "rompager", "tomcat", "jetty",
+               "tengine"]
+
 
 def reduce_bannerlist():
     """
@@ -17,7 +20,6 @@ def reduce_bannerlist():
 
     data_collletlist = []
     item = dict()
-    input_items = ["http server", "nginx", "iis", "lighttpd", "micro httpd", "boa", "rompager", "tomcat", "jetty", "tengine"]
 
     for filename in os.listdir(pure_data_dir):
         if filename[:4] == "pure":
