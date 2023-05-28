@@ -51,7 +51,6 @@ def get_puredata():
             print("@正在处理 " + dscan_file + " 文件！")
             for line in f1:
                 line_data = json.loads(line)
-                banner_list = []
 
                 # 检查有没有http_server_detect_list字段
                 try:
@@ -68,42 +67,71 @@ def get_puredata():
                         参考链接：https://juejin.cn/post/6994404313380421669
                         """
                         if len(line_data['port_list']) == 1:
-                            for j in range(len(line_data['port_list'][0]['dscan_data']['http_server_detect_list'])):
-                                for k in range(len(line_data['port_list'][0]['app_list'])):
-                                    _type = line_data['port_list'][0]['app_list'][k]['type']
-                                    _product = line_data['port_list'][0]['app_list'][k]['product']
+                            # for j in range(len(line_data['port_list'][0]['dscan_data']['http_server_detect_list'])):
+                            #     for k in range(len(line_data['port_list'][0]['app_list'])):
+                            #         _type = line_data['port_list'][0]['app_list'][k]['type']
+                            #         _product = line_data['port_list'][0]['app_list'][k]['product']
+                            #
+                            #         if line_data['port_list'][0]['app_list'][k]["version_start"] != "":
+                            #             _version = line_data['port_list'][0]['app_list'][k]["version_start"]
+                            #         else:
+                            #             _version = "no_version"
+                            #
+                            #         if _type == "WebContainer":
+                            #             banner_list.append(line_data['port_list'][0]['dscan_data']
+                            #                                ['http_server_detect_list'][j])
+                            http_server_detect_list_data = line_data['port_list'][0]['dscan_data']['http_server_detect_list']
+                            for i in range(len(line_data['port_list'][0]['app_list'])):
+                                _type = line_data['port_list'][0]['app_list'][i]['type']
+                                _product = line_data['port_list'][0]['app_list'][i]['product']
 
-                                    if line_data['port_list'][0]['app_list'][k]["version_start"] != "":
-                                        _version = line_data['port_list'][0]['app_list'][k]["version_start"]
-                                    else:
-                                        _version = "no_version"
+                                if line_data['port_list'][0]['app_list'][i]["version_start"] != "":
+                                    _version = line_data['port_list'][0]['app_list'][i]["version_start"]
+                                else:
+                                    _version = "no_version"
 
-                                    if _type == "WebContainer":
-                                        banner_list.append(line_data['port_list'][0]['dscan_data']
-                                                           ['http_server_detect_list'][j])
+                                if _type == "WebContainer":
+                                    break
+
 
                         elif len(line_data['port_list']) == 2:
-                            for j in range(len(line_data['port_list'][1]['dscan_data']['http_server_detect_list'])):
-                                for k in range(len(line_data['port_list'][0]['app_list'])):
-                                    _type = line_data['port_list'][0]['app_list'][k]['type']
-                                    _product = line_data['port_list'][0]['app_list'][k]['product']
+                            # for j in range(len(line_data['port_list'][1]['dscan_data']['http_server_detect_list'])):
+                            #     for k in range(len(line_data['port_list'][0]['app_list'])):
+                            #         _type = line_data['port_list'][0]['app_list'][k]['type']
+                            #         _product = line_data['port_list'][0]['app_list'][k]['product']
+                            #
+                            #         if line_data['port_list'][0]['app_list'][k]["version_start"] != "":
+                            #             _version = line_data['port_list'][0]['app_list'][k]["version_start"]
+                            #         else:
+                            #             _version = "no_version"
+                            #
+                            #         if _type == "WebContainer":
+                            #             banner_list.append(line_data['port_list'][1]['dscan_data']
+                            #                                ['http_server_detect_list'][j])
+                            http_server_detect_list_data = line_data['port_list'][1]['dscan_data'][
+                                'http_server_detect_list']
 
-                                    if line_data['port_list'][0]['app_list'][k]["version_start"] != "":
-                                        _version = line_data['port_list'][0]['app_list'][k]["version_start"]
-                                    else:
-                                        _version = "no_version"
+                            for i in range(len(line_data['port_list'][0]['app_list'])):
+                                _type = line_data['port_list'][0]['app_list'][i]['type']
+                                _product = line_data['port_list'][0]['app_list'][i]['product']
 
-                                    if _type == "WebContainer":
-                                        banner_list.append(line_data['port_list'][1]['dscan_data']
-                                                           ['http_server_detect_list'][j])
+                                if line_data['port_list'][0]['app_list'][i]["version_start"] != "":
+                                    _version = line_data['port_list'][0]['app_list'][i]["version_start"]
+                                else:
+                                    _version = "no_version"
 
+                                if _type == "WebContainer":
+                                    break
                     except:
                         print('@INFO: dscan_list不存在')
                         pass
 
+                    original_banner = line_data["port_list"][0]["banner_list"][0]["banner"]
+
                     data_lines = {
                         'ip': line_data['ip'],
-                        'banner_list': banner_list,
+                        'original_banner': original_banner,
+                        'banner_list': http_server_detect_list_data,
                         'product': _product,
                         'version': _version
                     }

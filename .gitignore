@@ -3,3 +3,5 @@
 *.json
 .idea/Data_process.iml
 .idea/misc.xml
+/process_pip/select_probe_temp/array_3d.pkl
+/process_pip/select_probe_temp/probability_matrix.pkl
