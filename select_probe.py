@@ -96,7 +96,7 @@ def bool_hasVersion(dscan_list, version):
         if version in item:
             flag1 = True
 
-    if dscan_list['part3'].find(product) != -1:
+    if dscan_list['part3'].find(version) != -1:
         flag2 = True
 
     return flag1 or flag2

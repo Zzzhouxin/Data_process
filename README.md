@@ -1,7 +1,7 @@
 ##### get_puredata.py
 
 按照IP + banner_list + product的格式储存为新的pure_data
-输出：pure_data，json
+输出：pure_data.json
 
 ##### reduce_bannerlist.py
 

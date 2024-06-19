@@ -126,11 +126,11 @@ def get_puredata():
                         print('@INFO: dscan_list不存在')
                         pass
 
-                    original_banner = line_data["port_list"][0]["banner_list"][0]["banner"]
+                    # original_banner = line_data["port_list"][0]["banner_list"][0]["banner"]
 
                     data_lines = {
                         'ip': line_data['ip'],
-                        'original_banner': original_banner,
+                        # 'original_banner': original_banner,
                         'banner_list': http_server_detect_list_data,
                         'product': _product,
                         'version': _version
